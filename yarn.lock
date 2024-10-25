@@ -593,6 +593,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.59.16":
+  version: 5.59.16
+  resolution: "@tanstack/query-core@npm:5.59.16"
+  checksum: 10c0/487a1ac0df5e02ca4ea5bf3b9ee0010ac7fe0856a36fa7bd10947598d3f0ba356c91aa21b123729b26f2116f05b8b69cd8fb17681c24cdd586de17b6fe021521
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-devtools@npm:5.58.0":
+  version: 5.58.0
+  resolution: "@tanstack/query-devtools@npm:5.58.0"
+  checksum: 10c0/3b0ad21503682f6c452f5f78f5cc9007e902f455c70fd7d537ca2c3b13f41607ab4ad612c0ca19abc24aa2a9fa9bf019101dfeb43abfa53f04782322558f19f6
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-form@npm:^0.34.1":
   version: 0.34.1
   resolution: "@tanstack/react-form@npm:0.34.1"
@@ -608,6 +622,29 @@ __metadata:
     "@tanstack/start":
       optional: true
   checksum: 10c0/f4dbaae96985a014ec16e406127650b495e329f8cf45a2ad56503e1c2039b8dc1cb5125697429c08a50d117f095c517ea62acccfece54ad9fe3d0b167a18a939
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.59.16":
+  version: 5.59.16
+  resolution: "@tanstack/react-query-devtools@npm:5.59.16"
+  dependencies:
+    "@tanstack/query-devtools": "npm:5.58.0"
+  peerDependencies:
+    "@tanstack/react-query": ^5.59.16
+    react: ^18 || ^19
+  checksum: 10c0/eea7960193b5287e0935c9a2ff5c58bae36e96358cdc40807ef7b3d3a2b480b1bd853bed0ceda54b39f16f88b6dac8bdf439856458cd6fd7394b221d545e59f2
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.59.16":
+  version: 5.59.16
+  resolution: "@tanstack/react-query@npm:5.59.16"
+  dependencies:
+    "@tanstack/query-core": "npm:5.59.16"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/82acf170d2d169ad18081e4dc52bdcec3b92bd1b134bb704ab6949937a59fd4d7d4ddb1172dd7fdbd1667a2d2e0ffa118e68bde5f53972649b8e55bd0e87244c
   languageName: node
   linkType: hard
 
@@ -934,6 +971,8 @@ __metadata:
   resolution: "aptner-pass@workspace:."
   dependencies:
     "@tanstack/react-form": "npm:^0.34.1"
+    "@tanstack/react-query": "npm:^5.59.16"
+    "@tanstack/react-query-devtools": "npm:^5.59.16"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"

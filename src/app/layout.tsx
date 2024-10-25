@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
 import { MainStoreProvider } from "@/stores/mainStoreProvider";
-import { SearchInput } from "@/components/SearchInput";
+import ReactQueryProviders from "./providers";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,25 +29,24 @@ export default function RootLayout({
   return (
     <html lang="ko-kr">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <MainStoreProvider>
-          <header>
-            <h1>GitHub 유저 검색 및 북마크</h1>
-            <nav>
-              <ul>
-                <li>
-                  <Link href="/all-users">모든 유저</Link>
-                </li>
-                <li>
-                  <Link href="/bookmarked">북마크된 유저</Link>
-                </li>
-              </ul>
-            </nav>
-            <div>
-              <SearchInput />
-            </div>
-          </header>
-          <main>{children}</main>
-        </MainStoreProvider>
+        <ReactQueryProviders>
+          <MainStoreProvider>
+            <header>
+              <h1>GitHub 유저 검색 및 북마크</h1>
+              <nav>
+                <ul>
+                  <li>
+                    <Link href="/all-users">모든 유저</Link>
+                  </li>
+                  <li>
+                    <Link href="/bookmarked">북마크된 유저</Link>
+                  </li>
+                </ul>
+              </nav>
+            </header>
+            <main>{children}</main>
+          </MainStoreProvider>
+        </ReactQueryProviders>
       </body>
     </html>
   );
