@@ -24,6 +24,7 @@ const AllUsers = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          window.scrollBy(0, -20);
           fetchNextPage();
         }
       },

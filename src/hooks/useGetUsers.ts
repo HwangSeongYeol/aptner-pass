@@ -1,8 +1,8 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { InfiniteData, QueryKey, useInfiniteQuery } from "@tanstack/react-query";
 import QUERY_KEY from "./queryKeys";
 import axiosInstance from "@src/utils/axios";
 import { ProcessedUser, User } from "@src/types/common";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 
 export const PER_PAGE = 20;
 
@@ -18,6 +18,12 @@ export interface GetUsersResponse {
   total_count: number;
   incomplete_results: boolean;
   items: User[];
+}
+
+interface GetUsersResult {
+  users: ProcessedUser[];
+  nextPage: number;
+  totalCount: number;
 }
 
 /**
@@ -55,9 +61,15 @@ export interface GetUsersResponse {
 
 const useGetUsers = ({ props }: { props: GetUsersParams }) => {
   const { enabled = false, ...params } = props;
-  const query = useInfiniteQuery({
+  const query = useInfiniteQuery<
+    GetUsersResult,
+    AxiosError,
+    InfiniteData<GetUsersResult>,
+    QueryKey,
+    number // pageParam
+  >({
     queryKey: QUERY_KEY.GET_USERS(params),
-    queryFn: async ({ pageParam = 1, signal }) => {
+    queryFn: async ({ signal, pageParam = 1 }) => {
       const { data }: AxiosResponse<GetUsersResponse> = await axiosInstance.get("/search/users", {
         params: { ...params, per_page: params.per_page ?? 20, page: pageParam },
         signal,
@@ -82,6 +94,15 @@ const useGetUsers = ({ props }: { props: GetUsersParams }) => {
       return lastPage.users.length > 0 ? lastPage.nextPage : undefined;
     },
     enabled,
+    retry: (failureCount, error) => {
+      if (error.response?.status === 403) {
+        const message = "API rate limit exceeded. No retries will be attempted.";
+        console.error(message);
+        alert(message);
+        return false; // 재시도하지 않음
+      }
+      return failureCount < 3; // 최대 3회까지 재시도
+    },
   });
 
   return query;
