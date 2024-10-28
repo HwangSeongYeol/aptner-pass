@@ -2,8 +2,9 @@
 
 import { useMainStore } from "@src/stores/mainStoreProvider";
 import React from "react";
+import "./style.css";
 
-export const SearchInput = React.forwardRef<HTMLDivElement>(() => {
+const SearchInput = React.forwardRef<HTMLDivElement>(() => {
   const { searchInput, setSearchInput } = useMainStore((s) => s);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -18,3 +19,5 @@ export const SearchInput = React.forwardRef<HTMLDivElement>(() => {
 });
 
 SearchInput.displayName = "SearchInput";
+
+export default SearchInput;

@@ -1,6 +1,6 @@
 "use client";
 
-import UserInfo from "@src/components/UserInfo";
+import UserInfo from "@src/components/UserInfo/UserInfo";
 import { ProcessedUser } from "@src/types/common";
 import { useEffect, useState } from "react";
 
@@ -25,7 +25,6 @@ const Bookmarked = () => {
 
   return (
     <div>
-      <h1>bookmarked</h1>
       <div>
         {bookmarks.map((user, idx) => (
           <UserInfo index={idx} key={user.id} data={user} disableHighlight />

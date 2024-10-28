@@ -1,0 +1,14 @@
+.SearchInput {
+  @apply relative w-full max-w-sm mx-auto;
+}
+
+.SearchInput input {
+  @apply w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none transition-all;
+  background-color: var(--background);
+  color: var(--foreground);
+  border-color: #d0d0d0;
+}
+
+.SearchInput input:focus {
+  @apply ring-2 ring-blue-500 border-transparent;
+}

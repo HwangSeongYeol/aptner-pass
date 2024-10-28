@@ -27,24 +27,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko-kr">
+    <html lang="ko-kr" style={{ scrollbarGutter: "stable" }}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReactQueryProviders>
           <MainStoreProvider>
-            <header>
-              <h1>GitHub 유저 검색 및 북마크</h1>
-              <nav>
-                <ul>
-                  <li>
-                    <Link href="/all-users">모든 유저</Link>
-                  </li>
-                  <li>
-                    <Link href="/bookmarked">북마크된 유저</Link>
-                  </li>
-                </ul>
-              </nav>
+            <header className="root_header sticky top-0 z-10 shadow inset-x-0">
+              <div className="max-w-4xl mx-auto p-4">
+                <h1 className="text-lg font-bold">GitHub 유저 검색 및 북마크</h1>
+                <nav>
+                  <ul className="flex space-x-4">
+                    <li>
+                      <Link href="/all-users">모든 유저</Link>
+                    </li>
+                    <li>
+                      <Link href="/bookmarked">북마크된 유저</Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </header>
-            <main>{children}</main>
+            <main className="root_body max-w-4xl mx-auto p-4">{children}</main>
           </MainStoreProvider>
         </ReactQueryProviders>
       </body>

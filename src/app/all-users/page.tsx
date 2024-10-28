@@ -1,8 +1,8 @@
 "use client";
 
-import { SearchInput } from "@src/components/SearchInput";
-import Spinner from "@src/components/Spinner";
-import UserInfo from "@src/components/UserInfo";
+import SearchInput from "@src/components/SearchInput/SearchInput";
+import Spinner from "@src/components/Spinner/Spinner";
+import UserInfo from "@src/components/UserInfo/UserInfo";
 import useGetUsers, { PER_PAGE } from "@src/hooks/useGetUsers";
 import { useMainStore } from "@src/stores/mainStoreProvider";
 import { useEffect, useRef } from "react";
@@ -48,7 +48,6 @@ const AllUsers = () => {
 
   return (
     <div>
-      <h1>all-users</h1>
       <div>
         <SearchInput />
       </div>
