@@ -4,6 +4,8 @@ import axiosInstance from "@src/utils/axios";
 import { ProcessedUser, User } from "@src/types/common";
 import { AxiosResponse } from "axios";
 
+export const PER_PAGE = 20;
+
 export interface GetUsersParams {
   q: string;
   sort?: "followers" | "repositories" | "joined";

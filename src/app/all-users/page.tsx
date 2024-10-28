@@ -3,7 +3,7 @@
 import { SearchInput } from "@src/components/SearchInput";
 import Spinner from "@src/components/Spinner";
 import UserInfo from "@src/components/UserInfo";
-import useGetUsers from "@src/hooks/useGetUsers";
+import useGetUsers, { PER_PAGE } from "@src/hooks/useGetUsers";
 import { useMainStore } from "@src/stores/mainStoreProvider";
 import { useEffect, useRef } from "react";
 
@@ -52,8 +52,10 @@ const AllUsers = () => {
         <SearchInput />
       </div>
       <div>
-        {data?.pages.map((page) =>
-          page.users.map((user, idx) => <UserInfo index={idx} key={user.id} data={user} />)
+        {data?.pages.map((page, pageIdx) =>
+          page.users.map((user, idx) => (
+            <UserInfo index={pageIdx * PER_PAGE + idx} key={user.id} data={user} />
+          ))
         )}
       </div>
       <div ref={observerRef} className="h-1"></div>
