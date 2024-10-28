@@ -53,7 +53,8 @@ export interface GetUsersResponse {
  * @see [GitHub API Docs](https://docs.github.com/ko/rest/search/search?apiVersion=2022-11-28#search-users)
  */
 
-const useGetUsers = ({ params }: { params: GetUsersParams }) => {
+const useGetUsers = ({ props }: { props: GetUsersParams }) => {
+  const { enabled = false, ...params } = props;
   const query = useInfiniteQuery({
     queryKey: QUERY_KEY.GET_USERS(params),
     queryFn: async ({ pageParam = 1, signal }) => {
@@ -80,7 +81,7 @@ const useGetUsers = ({ params }: { params: GetUsersParams }) => {
     getNextPageParam: (lastPage) => {
       return lastPage.users.length > 0 ? lastPage.nextPage : undefined;
     },
-    enabled: params.enabled,
+    enabled,
   });
 
   return query;

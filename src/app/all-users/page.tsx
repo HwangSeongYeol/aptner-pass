@@ -15,7 +15,7 @@ const AllUsers = () => {
   const { searchInput } = useMainStore((s) => s);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetUsers({
-    params: { q: `${searchInput} in:login`, enabled: !!searchInput },
+    props: { q: `${searchInput} in:login`, enabled: !!searchInput },
   });
 
   const observerRef = useRef<HTMLDivElement | null>(null);
@@ -33,14 +33,15 @@ const AllUsers = () => {
       }
     );
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+    const curObserverRef = observerRef.current;
+
+    if (curObserverRef) {
+      observer.observe(curObserverRef);
     }
 
-    // Clean up the observer on component unmount
     return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
+      if (curObserverRef) {
+        observer.unobserve(curObserverRef);
       }
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
