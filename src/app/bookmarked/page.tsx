@@ -1,3 +1,9 @@
+"use client";
+
+import UserInfo from "@src/components/UserInfo";
+import { ProcessedUser } from "@src/types/common";
+import { useEffect, useState } from "react";
+
 /**
  * localStorage에 bookmarked된 정보를 저장하고 map을 통해 노출
  * GitHub API에 쿼리를 다시 보내기 위해 localStorage에 최소화된 정보를 저장하였으나,
@@ -8,10 +14,23 @@
  * @returns JSX.Element
  */
 const Bookmarked = () => {
+  const [bookmarks, setBookmarks] = useState<ProcessedUser[]>([]);
+
+  useEffect(() => {
+    const storedBookmarks = JSON.parse(
+      localStorage.getItem("bookmarkedUsers") || "[]"
+    ) as ProcessedUser[];
+    setBookmarks(storedBookmarks);
+  }, []);
+
   return (
     <div>
       <h1>bookmarked</h1>
-      <div></div>
+      <div>
+        {bookmarks.map((user, idx) => (
+          <UserInfo index={idx} key={user.id} data={user} disableHighlight />
+        ))}
+      </div>
     </div>
   );
 };

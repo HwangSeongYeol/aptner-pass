@@ -1,3 +1,5 @@
+"use client";
+
 import { useMainStore } from "@src/stores/mainStoreProvider";
 import { ProcessedUser } from "@src/types/common";
 import Image from "next/image";
@@ -9,18 +11,25 @@ import linkIcon from "@assets/OutlineExternalLink.svg"; // SVG 경로를 설정
 interface UserInfoProps {
   index: number;
   data: ProcessedUser;
+  disableHighlight?: boolean;
 }
 
 /**
  * ProcessedUser를 렌더링하는 컴포넌트
  */
-const UserInfo = ({ index, data }: UserInfoProps) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const searchInput = useMainStore((s) => s.searchInput); // Zustand에서 searchInput을 가져옴
+const UserInfo = ({ index, data, disableHighlight = false }: UserInfoProps) => {
+  const searchInput = useMainStore((s) => s.searchInput);
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(() => {
+    const bookmarks = JSON.parse(
+      localStorage.getItem("bookmarkedUsers") || "[]"
+    ) as ProcessedUser[];
+    return bookmarks.some((user) => user.id === data.id);
+  });
 
   // 로그인 이름에서 검색어를 하이라이트 처리
   const getHighlightedLogin = (login: string) => {
     if (!searchInput) return login;
+    if (disableHighlight) return login;
 
     const parts = login.split(new RegExp(`(${searchInput})`, "gi"));
     return parts.map((part, index) =>
@@ -36,8 +45,22 @@ const UserInfo = ({ index, data }: UserInfoProps) => {
 
   // 즐겨찾기 상태 변경
   const handleBookmark = (e: MouseEvent<HTMLButtonElement>) => {
+    let bookmarks = JSON.parse(localStorage.getItem("bookmarkedUsers") || "[]") as ProcessedUser[];
+
+    if (!isBookmarked) {
+      // 북마크에 추가
+      bookmarks.push(data);
+    } else {
+      // 북마크에서 제거
+      const filteredBookmarks = bookmarks.filter((user) => user.id !== data.id);
+      bookmarks = filteredBookmarks;
+    }
+
+    // 업데이트된 북마크 목록을 localStorage에 저장
+    localStorage.setItem("bookmarkedUsers", JSON.stringify(bookmarks));
+
+    // 북마크 상태 업데이트
     setIsBookmarked(!isBookmarked);
-    // 북마크 상태를 localStorage 또는 store에 저장하도록 추가 가능
     e.stopPropagation();
   };
 
@@ -59,7 +82,7 @@ const UserInfo = ({ index, data }: UserInfoProps) => {
             isBookmarked ? "bg-red-500" : "bg-blue-500"
           }`}
         >
-          {isBookmarked ? "북마크 해제" : "즐겨찾기"}
+          {isBookmarked ? "북마크 해제" : "북마크"}
         </button>
         <Link href={data.html_url} target="_blank" className="flex items-center">
           <Image src={linkIcon} alt="Link to profile" width={24} height={24} className="mr-2" />
