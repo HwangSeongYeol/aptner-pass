@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import QUERY_KEY from "./queryKeys";
-import axiosInstance from "@/utils/axios";
-import { ProcessedUser, User } from "@/types/common";
+import axiosInstance from "@src/utils/axios";
+import { ProcessedUser, User } from "@src/types/common";
 import { AxiosResponse } from "axios";
 
 export interface GetUsersParams {

@@ -1,8 +1,9 @@
 "use client";
 
-import { SearchInput } from "@/components/SearchInput";
-import useGetUsers from "@/hooks/useGetUsers";
-import { useMainStore } from "@/stores/mainStoreProvider";
+import { SearchInput } from "@src/components/SearchInput";
+import UserInfo from "@src/components/UserInfo";
+import useGetUsers from "@src/hooks/useGetUsers";
+import { useMainStore } from "@src/stores/mainStoreProvider";
 
 /**
  * SearchInput에 입력받은 값을 통해 getUsers를 함
@@ -17,7 +18,7 @@ const AllUsers = () => {
       <div>
         <SearchInput />
       </div>
-      <div>{JSON.stringify(data)}</div>
+      <div>{data?.map((item) => <UserInfo key={item.id} data={item} />)}</div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMainStore } from "@/stores/mainStoreProvider";
+import { useMainStore } from "@src/stores/mainStoreProvider";
 import React from "react";
 
 export const SearchInput = React.forwardRef<HTMLDivElement>(() => {
