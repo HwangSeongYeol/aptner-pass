@@ -14,7 +14,7 @@ import { useEffect, useRef } from "react";
 const AllUsers = () => {
   const { searchInput } = useMainStore((s) => s);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetUsers({
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useGetUsers({
     props: { q: `${searchInput} in:login`, enabled: !!searchInput },
   });
 
@@ -52,16 +52,26 @@ const AllUsers = () => {
         <SearchInput />
       </div>
       <div>
+        {isLoading && (
+          <div className="h-12 flex items-center justify-center">
+            <Spinner />
+          </div>
+        )}
         {data?.pages.map((page, pageIdx) =>
           page.users.map((user, idx) => (
             <UserInfo index={pageIdx * PER_PAGE + idx} key={user.id} data={user} />
           ))
         )}
       </div>
-      <div ref={observerRef} className="h-1"></div>
+      <div ref={observerRef} className="h-1" />
       {isFetchingNextPage && (
         <div className="h-12 flex items-center justify-center">
           <Spinner />
+        </div>
+      )}
+      {searchInput && !isLoading && !hasNextPage && (
+        <div ref={observerRef} className="h-12 flex items-center justify-center">
+          검색 결과가 더 이상 없습니다.
         </div>
       )}
     </div>

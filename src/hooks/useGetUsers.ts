@@ -77,7 +77,7 @@ const useGetUsers = ({ props }: { props: GetUsersParams }) => {
         totalCount: data.total_count,
       };
     },
-    initialPageParam: 0,
+    initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       return lastPage.users.length > 0 ? lastPage.nextPage : undefined;
     },

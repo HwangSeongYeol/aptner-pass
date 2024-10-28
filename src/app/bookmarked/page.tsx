@@ -26,6 +26,9 @@ const Bookmarked = () => {
   return (
     <div>
       <div>
+        {bookmarks.length === 0 && (
+          <div className="">검색 후 북마크를 추가하여 원하는 사용자 목록을 만들어보세요!</div>
+        )}
         {bookmarks.map((user, idx) => (
           <UserInfo index={idx} key={user.id} data={user} disableHighlight />
         ))}
