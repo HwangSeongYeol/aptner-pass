@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import { MainStoreProvider } from "@src/stores/mainStoreProvider";
 import ReactQueryProviders from "./providers";
+import FloatingActionButton from "@src/components/FloatingActionButton/FloatingActionButton";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -46,7 +47,10 @@ export default function RootLayout({
                 </nav>
               </div>
             </header>
-            <main className="root_body max-w-4xl mx-auto p-4">{children}</main>
+            <main className="root_body max-w-4xl mx-auto p-4">
+              {children}
+              <FloatingActionButton />
+            </main>
           </MainStoreProvider>
         </ReactQueryProviders>
       </body>
