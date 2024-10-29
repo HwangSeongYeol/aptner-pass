@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent, useState } from "react";
 
-import linkIcon from "@assets/OutlineExternalLink.svg"; // SVG 경로를 설정
+import IconExtLink from "@assets/OutlineExternalLink.svg"; // SVG 경로를 설정
 
 interface UserInfoProps {
   index: number;
@@ -85,7 +85,9 @@ const UserInfo = ({ index, data, disableHighlight = false }: UserInfoProps) => {
           {isBookmarked ? "북마크 해제" : "북마크"}
         </button>
         <Link href={data.html_url} target="_blank" className="flex items-center">
-          <Image src={linkIcon} alt="Link to profile" width={24} height={24} className="mr-2" />
+          <div className="mr-2 text-foreground">
+            <IconExtLink />
+          </div>
         </Link>
       </div>
     </div>
