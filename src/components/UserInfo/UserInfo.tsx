@@ -66,25 +66,27 @@ const UserInfo = ({ index, data, disableHighlight = false }: UserInfoProps) => {
 
   return (
     <div className="flex items-center p-4 border-b border-gray-300 hover:bg-gray-100">
-      <span className="w-10 text-center font-semibold">{index + 1}</span>
+      <span className="w-10 min-w-10 text-center font-semibold">{index + 1}</span>
       <Image
         src={data.avatar_url}
         alt={`${data.login} avatar`}
         width={260}
         height={260}
-        className="w-12 h-12 rounded-full mr-4"
+        className="w-12 h-12 min-w-12 rounded-full mr-4"
       />
       <div className="flex items-center gap-4 flex-grow">
-        <h2 className="text-lg font-medium mr-auto">{getHighlightedLogin(data.login)}</h2>
+        <h2 className="text-lg font-medium flex-grow truncate w-0">
+          {getHighlightedLogin(data.login)}
+        </h2>
         <button
           onClick={handleBookmark}
           className={`px-3 py-1 rounded-lg text-sm font-semibold text-white ${
             isBookmarked ? "bg-red-500" : "bg-blue-500"
-          }`}
+          } flex-shrink-0`}
         >
           {isBookmarked ? "북마크 해제" : "북마크"}
         </button>
-        <Link href={data.html_url} target="_blank" className="flex items-center">
+        <Link href={data.html_url} target="_blank" className="flex items-center min-w-[2rem]">
           <div className="mr-2 text-foreground">
             <IconExtLink />
           </div>
